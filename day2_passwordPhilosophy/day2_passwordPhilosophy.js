@@ -1005,7 +1005,7 @@ const test = `1-3 a: abcde
 
 let strings = input.split('\n');
 
-function manipulateInput() {
+function validPassword() {
   let correctPasswords = 0;
 
   for (let i = 0; i < strings.length; i++) {
@@ -1036,4 +1036,29 @@ function manipulateInput() {
   return correctPasswords;
 }
 
-console.log(manipulateInput());
+console.log(validPassword());
+
+function validPasswordByPositions() {
+  let correctPasswords = 0;
+
+  for (let i = 0; i < strings.length; i++) {
+    let colon = strings[i].indexOf(':');
+    let hyphen = strings[i].indexOf('-');
+
+    let pos1 = strings[i].substring(0, hyphen);
+    let pos2 = strings[i].substring(hyphen + 1, strings[i].indexOf(' '));
+    let password = strings[i].substring((colon + 2), (strings[i].length));
+    let letter = strings[i].substring((colon - 1), colon);
+
+    let n = 0;
+
+    password.charAt(pos1 - 1) === letter ? n++ : null;
+    password.charAt(pos2 - 1) === letter ? n++ : null;
+
+    n === 1 ? correctPasswords++ : null;
+  } 
+
+  return correctPasswords;
+}
+
+console.log(validPasswordByPositions());
